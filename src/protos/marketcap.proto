@@ -1,0 +1,30 @@
+import "google/protobuf/empty.proto";
+syntax = "proto3";
+
+package marketcap;
+
+service MarketcapService {
+  rpc getCurrentMarketcap (GetCurrentMarketcapRequest) returns (GetCurrentMarketcapResponse);
+  rpc getMarketcapHistory (GetMarketcapHistoryRequest) returns (GetMarketcapHistoryResponse);
+}
+
+message MarketCap {
+  string date = 1;
+  string marketcap = 2;
+}
+
+message GetCurrentMarketcapRequest {
+  string contractAddress = 1;
+}
+
+message GetCurrentMarketcapResponse {
+  string marketcap = 1;
+}
+
+message GetMarketcapHistoryRequest {
+  string contractAddress = 1;
+}
+
+message GetMarketcapHistoryResponse {
+  repeated MarketCap data = 1;
+}
