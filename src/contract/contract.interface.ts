@@ -1,5 +1,10 @@
 import { Observable } from 'rxjs';
 
+export interface Contract {
+  id: number;
+  address: string;
+}
+
 export interface CreateContractAddressRequest {
   tokenAddress: string;
 }

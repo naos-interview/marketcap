@@ -1,20 +1,15 @@
 import { Controller, Get, Logger } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
-import { AppService } from './app.service';
+import { MarketcapService } from './marketcap.service';
 import {
   GetCurrentMarketcapRequest,
   GetMarketcapHistoryRequest,
 } from './marketcap.interface';
 
 @Controller()
-export class AppController {
+export class MarketcapController {
   private logger = new Logger('AppController');
-  constructor(private readonly appService: AppService) {}
-
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
+  constructor(private readonly appService: MarketcapService) {}
 
   @GrpcMethod('MarketcapService', 'getCurrentMarketcap')
   getCurrentMarketcap(req: GetCurrentMarketcapRequest) {

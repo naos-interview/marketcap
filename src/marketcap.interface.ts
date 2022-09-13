@@ -3,5 +3,6 @@ export interface GetCurrentMarketcapRequest {
 }
 
 export interface GetMarketcapHistoryRequest {
+  date: Date;
   contractAddress: string;
 }

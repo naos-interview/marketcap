@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ScheduleModule } from '@nestjs/schedule';
 import { join } from 'path';
-import { ContractController } from './contract.controller';
+import { ContractService } from './contract.service';
 
 @Module({
   imports: [
@@ -13,15 +13,14 @@ import { ContractController } from './contract.controller';
         options: {
           url: 'localhost:50053',
           package: 'contractAddress',
-          protoPath: join(
-            __dirname,
-            '../../src/contractAddress/protos/contractAddress.proto',
-          ),
+          protoPath: join(__dirname, '../../src/protos/contract.proto'),
         },
       },
     ]),
     ScheduleModule.forRoot(),
   ],
-  controllers: [ContractController],
+  controllers: [],
+  providers: [ContractService],
+  exports: [ContractService],
 })
 export class ContractModule {}

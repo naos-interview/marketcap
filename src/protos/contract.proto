@@ -1,0 +1,28 @@
+import "google/protobuf/empty.proto";
+syntax = "proto3";
+
+package contractAddress;
+
+service ContractAddressService {
+  rpc createContractAddress (CreateContractAddressRequest) returns (CreateContractAddressResponse);
+  rpc getAllContractAddress (google.protobuf.Empty) returns (GetAllContractAddressResponse);
+}
+
+message Contract {
+  int32 id = 1;
+  string address = 2;
+}
+
+message CreateContractAddressRequest {
+  string tokenAddress = 1;
+  // repeated double data = 1; for array
+}
+
+message CreateContractAddressResponse {
+  bool success = 1;
+}
+
+message GetAllContractAddressResponse {
+  repeated Contract data = 1;
+}
+
