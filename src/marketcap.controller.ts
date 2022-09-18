@@ -1,4 +1,4 @@
-import { Controller, Get, Logger } from '@nestjs/common';
+import { Controller, Logger } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
 import { MarketcapService } from './marketcap.service';
 import {
@@ -8,27 +8,34 @@ import {
 
 @Controller()
 export class MarketcapController {
-  private logger = new Logger('AppController');
-  constructor(private readonly appService: MarketcapService) {}
+  private logger = new Logger('MarketcapController');
+  constructor(private readonly marketcapService: MarketcapService) {}
 
   @GrpcMethod('MarketcapService', 'getCurrentMarketcap')
-  getCurrentMarketcap(req: GetCurrentMarketcapRequest) {
+  async getCurrentMarketcap(req: GetCurrentMarketcapRequest) {
+    const data = await this.marketcapService.getMarketcapByAddress(
+      req.contractAddress,
+    );
     this.logger.log('get marketcap:' + req.contractAddress);
     return {
-      marketcap: '123443',
+      marketcap: data.marketcap,
     };
   }
 
   @GrpcMethod('MarketcapService', 'getMarketcapHistory')
-  getMarketcapHistory(req: GetMarketcapHistoryRequest) {
+  async getMarketcapHistory(req: GetMarketcapHistoryRequest) {
     this.logger.log('get marketcap history:' + req.contractAddress);
+    const marketcaps = await this.marketcapService.getMarketcapsByAddress(
+      req.contractAddress,
+    );
+    const data = marketcaps.map((item) => {
+      return {
+        date: new Date(item.created_at),
+        marketcap: item.marketcap,
+      };
+    });
     return {
-      data: [
-        {
-          date: new Date(),
-          marketcap: '1231234233',
-        },
-      ],
+      data,
     };
   }
 }

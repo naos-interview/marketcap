@@ -12,7 +12,7 @@ export class ContractService implements OnModuleInit {
   private svc: ContractServiceClient;
 
   constructor(
-    @Inject('CONTRACTADDRESS_PACKAGE')
+    @Inject('CONTRACT_PACKAGE')
     private client: ClientGrpc,
   ) {}
 

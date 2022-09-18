@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: marketcap-service
+  labels:
+    app: marketcap
+spec:
+  type: NodePort
+  ports:
+  - port: 50054
+    nodePort: 50054
+    targetPort: 50054
+    protocol: TCP
+  selector:
+   app: marketcap

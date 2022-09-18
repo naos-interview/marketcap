@@ -1,7 +1,7 @@
 import "google/protobuf/empty.proto";
 syntax = "proto3";
 
-package contractAddress;
+package contract;
 
 service ContractAddressService {
   rpc createContractAddress (CreateContractAddressRequest) returns (CreateContractAddressResponse);

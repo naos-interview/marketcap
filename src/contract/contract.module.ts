@@ -8,11 +8,11 @@ import { ContractService } from './contract.service';
   imports: [
     ClientsModule.register([
       {
-        name: 'CONTRACTADDRESS_PACKAGE',
+        name: 'CONTRACT_PACKAGE',
         transport: Transport.GRPC,
         options: {
           url: 'localhost:50053',
-          package: 'contractAddress',
+          package: 'contract',
           protoPath: join(__dirname, '../../src/protos/contract.proto'),
         },
       },
